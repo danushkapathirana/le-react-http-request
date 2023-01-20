@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import MovieList from './components/MovieList';
+
+import classes from './App.css'
+
+const DUMMY_MOVIES = [
+  {
+    id: 1,
+    title: 'Some Dummy Movie',
+    openingText: 'This is the opening text of the movie',
+    releaseDate: '2021-05-18',
+  },
+  {
+    id: 2,
+    title: 'Some Dummy Movie 2',
+    openingText: 'This is the second opening text of the movie',
+    releaseDate: '2021-05-19',
+  },
+]
+
+const App = () => {
+  return(
+    <Fragment>
+      <section>
+        <button>Fetch Movies</button>
+      </section>
+      <section>
+        <MovieList movies={DUMMY_MOVIES} />
+      </section>
+    </Fragment>
+  )
 }
 
-export default App;
+export default App
