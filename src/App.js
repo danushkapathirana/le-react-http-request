@@ -10,7 +10,7 @@ const App = () => {
   const fetchMovieHandler = () => {
     fetch('https://swapi.dev/api/films')
     .then((response) => {
-      return response.json()
+      return response.json() //transform the response into real js object
     })
     .then((data) => {
       const transformedMovies = data.results.map((movieData) => { //mapping names that we have used in our application and names that used in API
@@ -24,7 +24,13 @@ const App = () => {
       setMovies(transformedMovies)
     })
   }
-  
+
+  // using async / await syntax
+  // async const fetchMovieHandler  = () => {
+  //   const response = await fetch('https://swapi.dev/api/films')
+  //   const data = await response.json() //transform the response into real js object
+  // }
+
   return(
     <Fragment>
       <section>
