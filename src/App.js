@@ -1,32 +1,37 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import MovieList from './components/MovieList';
 
 import classes from './App.css'
 
-const DUMMY_MOVIES = [
-  {
-    id: 1,
-    title: 'Some Dummy Movie',
-    openingText: 'This is the opening text of the movie',
-    releaseDate: '2021-05-18',
-  },
-  {
-    id: 2,
-    title: 'Some Dummy Movie 2',
-    openingText: 'This is the second opening text of the movie',
-    releaseDate: '2021-05-19',
-  },
-]
-
 const App = () => {
+  const [movies, setMovies] = useState([])
+
+  const fetchMovieHandler = () => {
+    fetch('https://swapi.dev/api/films')
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      const transformedMovies = data.results.map((movieData) => { //mapping names that we have used in our application and names that used in API
+        return{
+          id: movieData.episode_id,
+          title: movieData.title,
+          openingText: movieData.opening_crawl,
+          releaseDate: movieData.release_date
+        }
+      })
+      setMovies(transformedMovies)
+    })
+  }
+  
   return(
     <Fragment>
       <section>
-        <button>Fetch Movies</button>
+        <button onClick={fetchMovieHandler}>Fetch Movies</button>
       </section>
       <section>
-        <MovieList movies={DUMMY_MOVIES} />
+        <MovieList movies={movies} />
       </section>
     </Fragment>
   )
