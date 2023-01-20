@@ -6,8 +6,10 @@ import classes from './App.css'
 
 const App = () => {
   const [movies, setMovies] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const fetchMovieHandler = () => {
+    setIsLoading(true)
     fetch('https://swapi.dev/api/films')
     .then((response) => {
       return response.json() //transform the response into real js object
@@ -22,6 +24,7 @@ const App = () => {
         }
       })
       setMovies(transformedMovies)
+      setIsLoading(false)
     })
   }
 
@@ -37,7 +40,8 @@ const App = () => {
         <button onClick={fetchMovieHandler}>Fetch Movies</button>
       </section>
       <section>
-        <MovieList movies={movies} />
+        {!isLoading && <MovieList movies={movies} />}
+        {isLoading && <p>Loading...</p>}
       </section>
     </Fragment>
   )
