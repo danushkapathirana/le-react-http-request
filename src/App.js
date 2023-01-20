@@ -40,7 +40,8 @@ const App = () => {
         <button onClick={fetchMovieHandler}>Fetch Movies</button>
       </section>
       <section>
-        {!isLoading && <MovieList movies={movies} />}
+        {!isLoading && movies.length > 0 && <MovieList movies={movies} />}
+        {!isLoading && movies.length === 0 && <p>No movies found.!</p> }
         {isLoading && <p>Loading...</p>}
       </section>
     </Fragment>
