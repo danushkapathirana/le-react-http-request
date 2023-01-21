@@ -45,8 +45,16 @@ const App = () => {
     fetchMovieHandler()
   }, [fetchMovieHandler])
 
-  const addMovieHandler = (movie) => {
-    console.log(movie)
+  async function addMovieHandler(movie) {
+    const response = await fetch('https://react-http-8d134-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json', {
+      method: 'POST',
+      body: JSON.stringify(movie),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.json()
+    console.log(data)
   }
 
   // async function fetchMovieHandler() {
