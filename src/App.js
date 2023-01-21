@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 
 import MovieList from './components/MovieList';
 
@@ -9,7 +9,8 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const fetchMovieHandler = () => {
+  
+  const fetchMovieHandler = useCallback(() => { //useCallback returns memorized version of function; without useCallback this will infinite loop; why?
     setIsLoading(true)
     setError(null)
 
@@ -37,7 +38,11 @@ const App = () => {
       setError(error.message)
     })
     setIsLoading(false)
-  }
+  }, [])
+
+  useEffect(() => {
+    fetchMovieHandler()
+  }, [fetchMovieHandler])
 
   // async function fetchMovieHandler() {
   //   setIsLoading(true)
